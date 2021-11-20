@@ -1,20 +1,23 @@
-import React from 'react';
-import { gql } from "@apollo/client";
-
-const GET_BOOKS = gql`
-  {
-    books {
-      name
-      id
-    }
-  }
-`
+import React, { useEffect, useState } from 'react';
+import { useQuery } from "@apollo/client";
+import { GET_BOOKS } from "../GraphQL/Queries";
 
 const Books = () => {
+  const [bookList, setBookList] = useState([])
+  const { data } = useQuery(GET_BOOKS)
+
+  useEffect(() => {
+    if(data){  
+      setBookList(data.books)
+    }
+  }, [data])
+
   return (
     <div>
       <ul>
-        <li>Book Names</li>
+        {bookList.map(item => (
+          <li key={item.id}>{item.name}</li>
+        ))}
       </ul>
     </div>
   )

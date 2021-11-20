@@ -10,21 +10,8 @@ const {
   GraphQLNonNull
 } = graphql;
 
-// Dummy Data
-var books = [
-  { name: "Name of the wind", genre: "Fantasy", id: "1", authorId: "2" },
-  { name: "The Final Empire", genre: "Fantasy", id: "2", authorId: "3" },
-  { name: "The Long Earth", genre: "Sci-Fi", id: "3", authorId: "1"},
-  { name: "The Little Man", genre: "Comedy", id: "4", authorId: "3"},
-  { name: "Way Down", genre: "Tragic", id: "5", authorId: "3"},
-  { name: "Lust & Lies", genre: "Romance", id: "6", authorId: "2"},
-]
-
-var authors = [
-  { name: "James Stome", age: 42, id: "1"},
-  { name: "Kemp Clement", age: 64, id: "2"},
-  { name: "Brown John", age: 26, id: "3"}
-]
+const books = require('../data/Books.json')
+const authors = require('../data/Authors.json')
 
 const BookType = new GraphQLObjectType({
   name: "Book",
