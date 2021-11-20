@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_AUTHORS } from "../GraphQL/Queries";
 import { ADD_BOOK } from "../GraphQL/Mutations";
+import { GET_BOOKS } from "../GraphQL/Queries";
 
 const AddBook = () => {
   const [authorList, setAuthorList] = useState([])
   const { loading, data } = useQuery(GET_AUTHORS)
-  const [ addBook, { error }] = useMutation(ADD_BOOK)
 
   const [bookName, setBookName] = useState('')
   const [bookGenre, setBookGenre] = useState('')
   const [authorId, setAuthorId] = useState('')
+
+  const [ addBook, { error }] = useMutation(ADD_BOOK)
 
   useEffect(() => {
     if(data) {
@@ -25,7 +27,8 @@ const AddBook = () => {
         name: bookName, 
         genre: bookGenre, 
         authorId: authorId
-      }
+      },
+      refetchQueries: [{ query: GET_BOOKS }]
     })
     if(error) {
       console.log(error)
@@ -50,8 +53,8 @@ const AddBook = () => {
             :
             <>
               <option>Select author</option>
-              {authorList.map(item => 
-                <option key={item.id} value={item.id}>{item.name}</option>
+              {authorList.map((item, index) => 
+                <option key={index} value={item.id}>{item.name}</option>
               )}
             </>
           }

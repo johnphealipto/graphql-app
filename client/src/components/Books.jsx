@@ -15,8 +15,8 @@ const Books = () => {
   return (
     <div>
       <ul>
-        {bookList.map(item => (
-          <li key={item.id}>{item.name}</li>
+        {bookList.map((item, index) => (
+          <li key={index}>{item.name}</li>
         ))}
       </ul>
     </div>
